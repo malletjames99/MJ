@@ -69,6 +69,9 @@ allstats <- inner_join(batterstats[ ,c('playerID','nameFirst','nameLast','yearID
   inner_join(batterdata[ ,c('nameFirst','nameLast','year','AB')],
              by = c('nameFirst'='nameFirst','nameLast'='nameLast','yearID'='year'))
 
+### Start here with 'perfectPitchAll.csv' ###
+
+
 allstats <- read.csv('perfectPitchAll.csv', stringsAsFactors = FALSE)
 
 probs <- group_by(allstats, yearID, pitcher) %>%
@@ -81,7 +84,6 @@ probs$pitcher <- as.factor(probs$pitcher)
 probs$pitcher <- factor(probs$pitcher, levels(probs$pitcher)[as.numeric(probs$pitcher)])
 ggplot(probs, aes(x=pitcher, y=p)) +
   geom_bar(stat='identity', fill='slategray2') +
-  theme_few() +
   theme(axis.text.x = element_text(size = 10,
                                    angle = 45,
                                    hjust = 1,
